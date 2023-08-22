@@ -23,15 +23,15 @@ function HomePage() {
       <div className="container">
         <SearchBar />
         <div className="row">
-          <div className="col-lg-8 col-md-14 col-sm-12">
-            <div className="row">
-              {randomAnime.map((anime) => (
-                <AnimeList anime={anime} />
-              ))}
-            </div>
-          </div>
           <div className="col-lg-4 col-md-4">
             <AnimeReview />
+          </div>
+          <div className="col-lg-8 col-md-14 col-sm-12">
+            <div className="row">
+              {randomAnime.map((anime, index) => (
+                <AnimeList anime={anime} key={index} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

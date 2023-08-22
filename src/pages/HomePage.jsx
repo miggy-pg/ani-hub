@@ -4,6 +4,7 @@ import "../assets/css/style.css";
 import AnimeOfflineDatabase from "../assets/anime-offline-database.json";
 import { AnimeList } from "../components/AnimeList";
 import { AnimeReview } from "../components/AnimeReview";
+import { SearchBar } from "../components/SearchBar";
 
 function HomePage() {
   const min = 1;
@@ -20,11 +21,18 @@ function HomePage() {
   return (
     <section className="anime__container">
       <div className="container">
+        <SearchBar />
         <div className="row">
-          {randomAnime.map((anime) => (
-            <AnimeList anime={anime} />
-          ))}
-          <AnimeReview />
+          <div className="col-lg-8 col-md-14 col-sm-12">
+            <div className="row">
+              {randomAnime.map((anime) => (
+                <AnimeList anime={anime} />
+              ))}
+            </div>
+          </div>
+          <div className="col-lg-4 col-md-4">
+            <AnimeReview />
+          </div>
         </div>
       </div>
     </section>

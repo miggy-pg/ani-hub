@@ -21,7 +21,9 @@ function HomePage() {
     <section className="anime__container">
       <div className="container">
         <div className="row">
-          <AnimeList />
+          {randomAnime.map((anime) => (
+            <AnimeList anime={anime} />
+          ))}
           <AnimeReview />
         </div>
       </div>

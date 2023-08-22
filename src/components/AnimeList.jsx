@@ -1,6 +1,7 @@
 import React from "react";
 
-export function AnimeList() {
+export function AnimeList({ anime }) {
+  console.log("anime: ", anime);
   return (
     <div className="col-lg-8">
       <div className="trending__anime">
@@ -43,7 +44,8 @@ export function AnimeList() {
                 className="anime__item__pic set-bg"
                 data-setbg="img/trending/trend-1.jpg"
               >
-                <div className="ep">18 / 18</div>
+                <img src={anime.picture} alt={anime.picture} />
+                <div className="ep">{anime.episodes}</div>
                 <div className="comment">
                   <i className="fa fa-comments"></i> 11
                 </div>
@@ -53,11 +55,12 @@ export function AnimeList() {
               </div>
               <div className="anime__item__text">
                 <ul>
-                  <li>Active</li>
-                  <li>Movie</li>
+                  {anime.tags.map((tag) => (
+                    <li>{tag}</li>
+                  ))}
                 </ul>
                 <h5>
-                  <p>The Seven Deadly Sins: Wrath of the Gods</p>
+                  <p>{anime.title}</p>
                 </h5>
               </div>
             </div>

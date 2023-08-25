@@ -1,3 +1,8 @@
 export function AnimeImage(props) {
-  return <img src={props.anime.picture} alt={props.anime.picture} />;
+  return (
+    <img
+      src={props.anime && props.anime.picture ? props.anime.picture : null}
+      alt=""
+    />
+  );
 }

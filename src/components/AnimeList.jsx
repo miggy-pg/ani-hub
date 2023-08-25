@@ -8,7 +8,7 @@ export function AnimeList({ anime, selectedAnime }) {
         <div
           style={{ cursor: "pointer" }}
           className="anime__item"
-          onClick={() => selectedAnime(anime.title)}
+          onClick={() => anime && selectedAnime(anime.title)}
         >
           <AnimeStats anime={anime} />
           <AnimeThumbnail anime={anime} />

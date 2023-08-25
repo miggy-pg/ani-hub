@@ -5,10 +5,12 @@ import AnimeOfflineDatabase from "../assets/anime-offline-database.json";
 import { AnimeList } from "../components/AnimeList";
 import { AnimeReview } from "../components/AnimeReview";
 import { SearchBar } from "../components/SearchBar";
+import { AnimeWatchedBar } from "../components/AnimeWatchedBar";
 
 function HomePage() {
   const [isSelectedAnime, setSelectedAnime] = useState("");
 
+  console.log("selectedAnime: ", isSelectedAnime);
   const min = 1;
   const max = AnimeOfflineDatabase.data.length;
   const numberAnimes = 10;
@@ -21,17 +23,15 @@ function HomePage() {
     randomAnime.push(anime);
   }
 
-  let findAnime = randomAnime.find((anime) =>
-    anime.title.includes(isSelectedAnime)
-  );
-  console.log("findAnime: ", findAnime);
   return (
     <section className="anime__container">
       <div className="container">
         <SearchBar />
         <div className="row">
           <div className="col-lg-4 col-md-4">
-            <AnimeReview displayAnime={isSelectedAnime && findAnime} />
+            <AnimeReview>
+              <AnimeWatchedBar displayAnime={isSelectedAnime} />
+            </AnimeReview>
           </div>
           <div className="col-lg-8 col-md-14 col-sm-12">
             <div className="row">

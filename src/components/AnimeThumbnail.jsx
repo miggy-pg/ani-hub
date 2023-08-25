@@ -11,8 +11,12 @@ function AnimeTitle(props) {
 export function AnimeThumbnail(props) {
   return (
     <div className="anime__item__text">
-      <AnimeImage tags={props.anime.tags} />
-      <AnimeTitle title={props.anime.title} />
+      <AnimeImage
+        tags={props.anime && props.anime.tags ? props.anime.tags : null}
+      />
+      <AnimeTitle
+        title={props.anime && props.anime.title ? props.anime.title : null}
+      />
     </div>
   );
 }

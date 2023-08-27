@@ -798,9 +798,18 @@ ol {
   margin-right: 0;
 }
 
+.anime__sidebar__preview {
+  height: 24rem;
+  border: 1px solid red;
+  text-align: center;
+  align-items: center;
+}
+
 .anime__sidebar__view__item {
-  height: 190px;
+  height: auto;
+  width: 13rem;
   position: relative;
+  text-align: center;
   border-radius: 5px;
   margin-bottom: 20px;
 }
@@ -827,6 +836,13 @@ ol {
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+.anime__sidebar__view__item .rating {
+  font-size: 13px;
+  color: #ffffff;
+  padding: 2px 10px;
+  border-radius: 4px;
 }
 
 .anime__sidebar__view__item h5 {

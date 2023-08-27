@@ -23,6 +23,10 @@ function HomePage() {
     randomAnime.push(anime);
   }
 
+  const handleSelectedAnime = (clickedThumbnail) => {
+    setSelectedAnime(clickedThumbnail);
+  };
+
   return (
     <section className="anime__container">
       <div className="container">
@@ -39,7 +43,7 @@ function HomePage() {
                 <AnimeList
                   anime={anime}
                   key={index}
-                  selectedAnime={setSelectedAnime}
+                  handleSelectedAnime={handleSelectedAnime}
                 />
               ))}
             </div>

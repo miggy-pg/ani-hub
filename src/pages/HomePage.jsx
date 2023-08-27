@@ -6,6 +6,8 @@ import { AnimeList } from "../components/AnimeList";
 import { AnimeReview } from "../components/AnimeReview";
 import { SearchBar } from "../components/SearchBar";
 import { AnimeWatchedBar } from "../components/AnimeWatchedBar";
+import { AnimeStats } from "../components/AnimeStats";
+import { AnimeThumbnail } from "../components/AnimeThumbnail";
 
 function HomePage() {
   const [isSelectedAnime, setSelectedAnime] = useState("");
@@ -32,7 +34,7 @@ function HomePage() {
       <div className="container">
         <SearchBar />
         <div className="row">
-          <div className="col-lg-4 col-md-4">
+          <div className="col-lg-4 col-md-8 col-sm-12">
             <AnimeReview>
               <AnimeWatchedBar displayAnime={isSelectedAnime} />
             </AnimeReview>
@@ -40,11 +42,16 @@ function HomePage() {
           <div className="col-lg-8 col-md-14 col-sm-12">
             <div className="row">
               {randomAnime.map((anime, index) => (
-                <AnimeList
-                  anime={anime}
-                  key={index}
-                  handleSelectedAnime={handleSelectedAnime}
-                />
+                <AnimeList key={index}>
+                  <div
+                    style={{ cursor: "pointer" }}
+                    className="anime__item"
+                    onClick={() => anime && handleSelectedAnime(anime.title)}
+                  >
+                    <AnimeStats anime={anime} />
+                    <AnimeThumbnail anime={anime} />
+                  </div>
+                </AnimeList>
               ))}
             </div>
           </div>

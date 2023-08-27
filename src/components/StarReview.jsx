@@ -5,9 +5,14 @@ const starStyle = {
   fill: "#ED8A19",
 };
 
-export function StarReview({ onClickStar, full }) {
+export function StarReview({ onClickStar, full, onHoverIn, onHoverOut }) {
   return (
-    <span role="button" onClick={onClickStar}>
+    <span
+      role="button"
+      onClick={onClickStar}
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
+    >
       {full ? (
         <svg
           style={starStyle}
@@ -27,7 +32,7 @@ export function StarReview({ onClickStar, full }) {
         </svg>
       ) : (
         <svg
-          style={{ fill: "none" }}
+          style={{ ...starStyle, fill: "#000" }}
           version="1.1"
           id="Capa_1"
           xmlns="http://www.w3.org/2000/svg"

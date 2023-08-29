@@ -1,4 +1,4 @@
-export function AnimeImage(props) {
+export function Tags(props) {
   return (
     <ul>
       {props.tags &&

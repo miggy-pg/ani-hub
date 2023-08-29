@@ -5,7 +5,7 @@ const starStyle = {
   fill: "#ED8A19",
 };
 
-export function StarReview({ onClickStar, full, onHoverIn, onHoverOut }) {
+export function StarRating({ onClickStar, full, onHoverIn, onHoverOut }) {
   return (
     <span
       role="button"

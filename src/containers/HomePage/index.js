@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import "../assets/css/bootstrap.min.css";
-import "../assets/css/style.css";
-import AnimeOfflineDatabase from "../assets/anime-offline-database.json";
-import { AnimeList } from "../components/AnimeList";
-import { AnimeReview } from "../components/AnimeReview";
-import { SearchBar } from "../components/SearchBar";
-import { AnimeWatchedBar } from "../components/AnimeWatchedBar";
-import { AnimeStats } from "../components/AnimeStats";
-import { AnimeThumbnail } from "../components/AnimeThumbnail";
+import "../../assets/css/bootstrap.min.css";
+import "../../assets/css/style.css";
+import AnimeOfflineDatabase from "../../assets/anime-offline-database.json";
+import { MyList } from "../../components/Management/MyList";
+import { Thumbnail } from "../../components/Management/MyList/Thumbnail";
+import { AnimeList } from "../../components/Management/AnimeList";
+import { SearchBar } from "../../components/Common/SearchBar";
+import { Image } from "../../components/Common/Image";
+import { Details } from "../../components/Common/Image/Details";
 
 function HomePage() {
   const [isSelectedAnime, setSelectedAnime] = useState("");
@@ -34,11 +34,9 @@ function HomePage() {
       <div className="container">
         <SearchBar />
         <div className="row">
-          <div className="col-lg-4 col-md-8 col-sm-12">
-            <AnimeReview>
-              <AnimeWatchedBar displayAnime={isSelectedAnime} />
-            </AnimeReview>
-          </div>
+          <MyList>
+            <Thumbnail displayAnime={isSelectedAnime} key={isSelectedAnime} />
+          </MyList>
           <div className="col-lg-8 col-md-14 col-sm-12">
             <div className="row">
               {randomAnime.map((anime, index) => (
@@ -48,8 +46,10 @@ function HomePage() {
                     className="anime__item"
                     onClick={() => anime && handleSelectedAnime(anime.title)}
                   >
-                    <AnimeStats anime={anime} />
-                    <AnimeThumbnail anime={anime} />
+                    <div className="anime__item__pic set-bg">
+                      <Image anime={anime}></Image>
+                      <Details anime={anime}></Details>
+                    </div>
                   </div>
                 </AnimeList>
               ))}

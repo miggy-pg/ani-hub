@@ -1,5 +1,14 @@
 import React from "react";
 
 export function Image({ anime }) {
-  return <img src={anime && anime.picture ? anime.picture : null} alt="" />;
+  return (
+    <img
+      src={
+        anime && anime.attributes.coverImage
+          ? anime.attributes.coverImage.original
+          : null
+      }
+      alt=""
+    />
+  );
 }

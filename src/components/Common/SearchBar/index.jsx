@@ -1,4 +1,4 @@
-export function SearchBar() {
+export function SearchBar({ query, setQuery }) {
   return (
     <div className="row anime__searchbar">
       <div className="col-lg-4 col-md-6 col-sm-12">
@@ -9,6 +9,8 @@ export function SearchBar() {
                 type="text"
                 className="searchTerm"
                 placeholder="What are you looking for?"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
               />
               <button type="submit" className="searchButton">
                 <svg

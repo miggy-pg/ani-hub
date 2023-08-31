@@ -4,14 +4,20 @@ export function Details({ anime }) {
   return (
     <>
       <div className="ep">
-        {anime && anime.episodes ? anime.episodes : null}
+        {anime && anime.attributes.episodeLength
+          ? anime.attributes.episodeLength
+          : null}
       </div>
       <div className="view">
         <i className="fa fa-eye"></i> 9141
       </div>
-      <h5>
-        <p>{anime && anime.title ? anime.title : null}</p>
-      </h5>
+      <span className="title">
+        <p>
+          {anime && anime.attributes.titles.en
+            ? anime.attributes.titles.en
+            : null}
+        </p>
+      </span>
     </>
   );
 }

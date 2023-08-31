@@ -687,15 +687,25 @@ ol {
 }
 
 .anime__item {
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 }
 
 .anime__item__pic {
   text-align: center;
-  height: 325px;
+  height: 23rem;
   overflow: hidden;
   position: relative;
   border-radius: 5px;
+}
+
+.anime__item__pic img {
+  width: 18rem;
+  height: 18rem;
+}
+
+.anime__item__pic .title p {
+  margin: 0.5rem;
+  color: #fff;
 }
 
 .anime__item__pic .ep {
@@ -731,7 +741,7 @@ ol {
   border-radius: 4px;
   position: absolute;
   right: 10px;
-  bottom: 10px;
+  bottom: 6rem;
 }
 
 .anime__item__text {

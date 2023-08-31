@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/style.css";
-import AnimeOfflineDatabase from "../../assets/anime-offline-database.json";
 import { MyList } from "../../components/Management/MyList";
 import { Thumbnail } from "../../components/Management/MyList/Thumbnail";
 import { AnimeList } from "../../components/Management/AnimeList";
@@ -9,57 +8,57 @@ import { SearchBar } from "../../components/Common/SearchBar";
 import { Image } from "../../components/Common/Image";
 import { Details } from "../../components/Common/Image/Details";
 
-const tempQuery = "cowboy%20bebop";
-
 function HomePage() {
   const [query, setQuery] = useState("");
-  const [isSelectedAnime, setSelectedAnime] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
   const [animes, setAnimes] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    console.log("A");
-  });
+  useEffect(
+    function () {
+      async function fetchAnimes() {
+        try {
+          setIsLoading(true);
+          setError("");
 
-  useEffect(() => {
-    console.log("B");
-  });
-  console.log("C");
+          const res = await fetch(
+            `https://kitsu.io/api/edge/anime?filter[text]=${query}`
+          );
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching animes.");
 
-  useEffect(function () {
-    async function fetchAnimes() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(
-          `https://kitsu.io/api/edge/anime?filter[text]=${tempQuery}`
-        );
-        if (!res.ok)
-          throw new Error("Something went wrong with fetching animes.");
+          const data = await res.json();
+          if (data.meta.count === 0) throw new Error("No anime found.");
 
-        const data = await res.json();
-        if (data.meta.count === 0) throw new Error("No anime not found.");
-
-        setAnimes(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
+          setAnimes(data);
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setIsLoading(false);
+        }
       }
-    }
-    fetchAnimes();
-  }, []);
+      if (query.length < 3) {
+        setAnimes([]);
+        setError("");
+        return;
+      }
+      fetchAnimes();
+    },
+    [query]
+  );
   const handleSelectedAnime = (clickedThumbnail) => {
-    setSelectedAnime(clickedThumbnail);
+    setSelectedId(clickedThumbnail);
   };
-
   return (
     <section className="anime__container">
       <div className="container">
         <SearchBar query={query} setQuery={setQuery} />
         <div className="row">
           <MyList>
-            <Thumbnail displayAnime={isSelectedAnime} key={isSelectedAnime} />
+            {selectedId ? (
+              <Thumbnail selectedId={selectedId} key={selectedId} />
+            ) : null}
           </MyList>
           <div className="col-lg-8 col-md-14 col-sm-12">
             <div className="row">
@@ -73,7 +72,7 @@ function HomePage() {
                     <div
                       style={{ cursor: "pointer" }}
                       className="anime__item"
-                      onClick={() => anime && handleSelectedAnime(anime.title)}
+                      onClick={() => anime && handleSelectedAnime(anime.id)}
                     >
                       <div className="anime__item__pic set-bg">
                         <Image anime={anime}></Image>

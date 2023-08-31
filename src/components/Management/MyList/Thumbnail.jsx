@@ -32,6 +32,15 @@ export function Thumbnail({ selectedId }) {
     [selectedId]
   );
 
+  useEffect(() => {
+    if (!data?.attributes?.titles?.en) return;
+    document.title = `Anime | ${data?.attributes?.titles?.en}`;
+
+    return () => {
+      document.title = "Watch Anime Online in HD with SUB, DUB for FREE";
+    };
+  }, [data]);
+
   return (
     <div className="anime__sidebar__preview d-flex justify-content-center align-items-center">
       <div className="col">

@@ -17,13 +17,16 @@ function HomePage() {
 
   useEffect(
     function () {
+      const controller = new AbortController();
+
       async function fetchAnimes() {
         try {
           setIsLoading(true);
           setError("");
 
           const res = await fetch(
-            `https://kitsu.io/api/edge/anime?filter[text]=${query}`
+            `https://kitsu.io/api/edge/anime?filter[text]=${query}`,
+            { signal: controller.signal }
           );
           if (!res.ok)
             throw new Error("Something went wrong with fetching animes.");
@@ -32,8 +35,11 @@ function HomePage() {
           if (data.meta.count === 0) throw new Error("No anime found.");
 
           setAnimes(data);
+          setError("");
         } catch (err) {
-          setError(err.message);
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
         } finally {
           setIsLoading(false);
         }
@@ -44,12 +50,18 @@ function HomePage() {
         return;
       }
       fetchAnimes();
+
+      return () => {
+        controller.abort();
+      };
     },
     [query]
   );
+
   const handleSelectedAnime = (clickedThumbnail) => {
     setSelectedId(clickedThumbnail);
   };
+
   return (
     <section className="anime__container">
       <div className="container">

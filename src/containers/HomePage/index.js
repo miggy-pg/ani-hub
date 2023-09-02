@@ -9,14 +9,29 @@ import { Image } from "../../components/Common/Image";
 import { Details } from "../../components/Common/Image/Details";
 
 function HomePage() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("kimi no nawa");
   const [selectedId, setSelectedId] = useState(null);
   const [animes, setAnimes] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [favorite, setFavorite] = useState([]);
 
   const handleCloseMovie = () => {
     setSelectedId(null);
+  };
+
+  const handleAddFavorite = (anime) => {
+    setFavorite((oldAnime) => [...oldAnime, anime]);
+  };
+
+  const handleSelectedAnime = (clickedThumbnail) => {
+    setSelectedId(clickedThumbnail);
+  };
+
+  const handleDeleteAnime = (id) => {
+    setFavorite((favoriteAnime) =>
+      favoriteAnime.filter((anime) => anime.id !== id)
+    );
   };
 
   useEffect(
@@ -63,20 +78,18 @@ function HomePage() {
     [query]
   );
 
-  const handleSelectedAnime = (clickedThumbnail) => {
-    setSelectedId(clickedThumbnail);
-  };
-
   return (
     <section className="anime__container">
       <div className="container">
         <SearchBar query={query} setQuery={setQuery} />
         <div className="row">
-          <MyList>
+          <MyList favorite={favorite}>
             {selectedId ? (
               <Thumbnail
                 selectedId={selectedId}
                 onCloseMovie={handleCloseMovie}
+                onAddFavorite={handleAddFavorite}
+                favorite={favorite}
                 key={selectedId}
               />
             ) : null}

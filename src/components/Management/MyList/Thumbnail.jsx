@@ -4,7 +4,12 @@ import { Details } from "../../Common/Image/Details";
 import { Rating } from "../../Common/Rating";
 import { Container } from "./Container";
 
-export function Thumbnail({ selectedId, onCloseMovie }) {
+export function Thumbnail({
+  selectedId,
+  onCloseMovie,
+  onAddFavorite,
+  favorite,
+}) {
   const [anime, selectedAnime] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,6 +58,18 @@ export function Thumbnail({ selectedId, onCloseMovie }) {
       document.title = "Watch Anime Online in HD with SUB, DUB for FREE";
     };
   }, [data]);
+
+  const isFavorite = favorite.map((anime) => anime.id).includes(selectedId);
+
+  const handleAdd = () => {
+    const newAddedFavorite = {
+      attributes: data.attributes,
+      id: data.id,
+    };
+    !isFavorite && onAddFavorite(newAddedFavorite);
+    onCloseMovie();
+  };
+
   const starStyle = {
     height: "20px",
     width: "20px",
@@ -77,7 +94,7 @@ export function Thumbnail({ selectedId, onCloseMovie }) {
             </Container>
             <Container>
               <div className="favorite">
-                <span role="button">
+                <span role="button" onClick={handleAdd}>
                   <svg
                     style={starStyle}
                     version="1.1"

@@ -15,6 +15,10 @@ function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const handleCloseMovie = () => {
+    setSelectedId(null);
+  };
+
   useEffect(
     function () {
       const controller = new AbortController();
@@ -49,6 +53,7 @@ function HomePage() {
         setError("");
         return;
       }
+      handleCloseMovie();
       fetchAnimes();
 
       return () => {
@@ -69,7 +74,11 @@ function HomePage() {
         <div className="row">
           <MyList>
             {selectedId ? (
-              <Thumbnail selectedId={selectedId} key={selectedId} />
+              <Thumbnail
+                selectedId={selectedId}
+                onCloseMovie={handleCloseMovie}
+                key={selectedId}
+              />
             ) : null}
           </MyList>
           <div className="col-lg-8 col-md-14 col-sm-12">

@@ -17,7 +17,6 @@ export function StarRating({ onClickStar, full, onHoverIn, onHoverOut }) {
         <svg
           style={starStyle}
           version="1.1"
-          id="Capa_1"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 47.94 47.94"
         >

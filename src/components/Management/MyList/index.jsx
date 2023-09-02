@@ -8,6 +8,17 @@ export function MyList({ children }) {
           </div>
           {children}
         </div>
+
+        <div className="anime__sidebar my-list">
+          <span className="my-list-title">
+            <h5>Favorites: </h5>
+          </span>
+          <div className="row movie-statistics">
+            <span>🎥 0 movies</span>
+            <span>💟 0</span>
+            <span>⏱ 0 min</span>
+          </div>
+        </div>
       </div>
     </div>
   );

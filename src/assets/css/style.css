@@ -779,19 +779,31 @@ ol {
   position: relative;
 }
 
-.anime__sidebar .section-title h5:after {
-  position: absolute;
-  left: 0;
-  top: -6px;
-  height: 32px;
-  width: 4px;
-  background: #e53637;
-  content: "";
+.anime__sidebar .my-list-title h5 {
+  color: #ffffff;
+  font-weight: 600;
+  font-family: "Oswald", sans-serif;
+  line-height: 21px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.anime__sidebar .movie-statistics {
+  color: #ffffff;
+  font-weight: 600;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  position: relative;
+  margin: 1rem;
+}
+
+.anime__sidebar .movie-statistics span {
+  margin: 0.5rem;
 }
 
 .anime__sidebar__view {
   position: relative;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 
 .anime__sidebar__view .filter__controls {
@@ -829,7 +841,6 @@ ol {
   position: relative;
   text-align: center;
   border-radius: 5px;
-  margin-bottom: 20px;
 }
 
 .anime__sidebar__view__item .ep {
@@ -859,7 +870,6 @@ ol {
 .anime__sidebar__view__item .thumbnail-holder {
   width: 13rem;
   height: 17rem;
-  border: 1px solid yellow;
 }
 
 .anime__sidebar__view__item h5 {

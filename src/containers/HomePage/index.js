@@ -83,7 +83,7 @@ function HomePage() {
       <div className="container">
         <SearchBar query={query} setQuery={setQuery} />
         <div className="row">
-          <MyList favorite={favorite}>
+          <MyList favorite={favorite} onDelete={handleDeleteAnime}>
             {selectedId ? (
               <Thumbnail
                 selectedId={selectedId}

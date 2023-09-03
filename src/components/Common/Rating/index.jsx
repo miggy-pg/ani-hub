@@ -1,5 +1,4 @@
 import { StarRating } from "../StarRating";
-import { useState } from "react";
 
 const titleStyle = {
   fontSize: "1.4rem",
@@ -8,10 +7,7 @@ const titleStyle = {
   padding: "0",
 };
 
-export function Rating() {
-  const [rating, setRating] = useState(0);
-  const [tempRating, setTempRating] = useState(0);
-
+export function Rating({ rating, tempRating, setRating, setTempRating }) {
   return (
     <>
       <div className="rating">

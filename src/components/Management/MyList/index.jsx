@@ -14,7 +14,7 @@ export function MyList({ favorite, onDelete, children }) {
       <div className="anime__sidebar">
         <div className="anime__sidebar__view">
           <div className="section-title">
-            <h5>My List:</h5>
+            <h5>Preview:</h5>
           </div>
           {children}
         </div>

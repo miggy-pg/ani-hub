@@ -14,7 +14,9 @@ function HomePage() {
   const [animes, setAnimes] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [favorite, setFavorite] = useState([]);
+  const [favorite, setFavorite] = useState(() => {
+    return JSON.parse(localStorage.getItem("favorite"));
+  });
 
   const handleCloseMovie = () => {
     setSelectedId(null);
@@ -33,6 +35,10 @@ function HomePage() {
       favoriteAnime.filter((anime) => anime.id !== id)
     );
   };
+
+  useEffect(() => {
+    localStorage.setItem("favorite", JSON.stringify(favorite));
+  }, [favorite]);
 
   useEffect(
     function () {

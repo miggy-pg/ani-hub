@@ -1,4 +1,21 @@
+import { useEffect, useRef } from "react";
+
 export function SearchBar({ query, setQuery }) {
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    const callback = (e) => {
+      if (document.activeElement === inputEl.current) return;
+
+      if (e.code === "Enter") {
+        inputEl.current.focus();
+        setQuery("");
+      }
+    };
+
+    return () => document.addEventListener("keydown", callback);
+  }, [setQuery]);
+
   return (
     <div className="row anime__searchbar">
       <div className="col-lg-4 col-md-6 col-sm-12">
@@ -11,6 +28,7 @@ export function SearchBar({ query, setQuery }) {
                 placeholder="What are you looking for?"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                ref={inputEl}
               />
               <button type="submit" className="searchButton">
                 <svg

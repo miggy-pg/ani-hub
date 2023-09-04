@@ -1,7 +1,6 @@
 import React from "react";
 
 export function Details({ anime }) {
-  console.log("anime: ", anime);
   return (
     <>
       <div className="ep">

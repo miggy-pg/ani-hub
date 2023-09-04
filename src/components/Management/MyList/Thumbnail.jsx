@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Image } from "../../Common/Image";
 import { Details } from "../../Common/Image/Details";
 import { Rating } from "../../Common/Rating";
@@ -16,6 +16,12 @@ export function Thumbnail({
   const [rating, setRating] = useState(0);
   const [tempRating, setTempRating] = useState(0);
   const { data } = anime;
+
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    if (rating) countRef.current++;
+  }, [rating]);
 
   useEffect(
     function () {

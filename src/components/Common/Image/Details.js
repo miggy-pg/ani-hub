@@ -1,6 +1,7 @@
 import React from "react";
 
 export function Details({ anime }) {
+  console.log("anime: ", anime);
   return (
     <>
       <div className="ep">
@@ -9,7 +10,10 @@ export function Details({ anime }) {
           : null}
       </div>
       <div className="view">
-        <i className="fa fa-eye"></i> 9141
+        <i className="fa fa-eye"></i>
+        {anime && anime.attributes.popularityRank
+          ? anime.attributes.popularityRank
+          : null}
       </div>
       <span className="title">
         <p>

@@ -4,6 +4,7 @@ import { Details } from "../../Common/Image/Details";
 import { Rating } from "../../Common/Rating";
 import { Container } from "./Container";
 import { Favorite } from "../../Common/Favorite";
+import useKey from "../../../hooks/useKey";
 
 export function Thumbnail({
   selectedId,
@@ -19,8 +20,10 @@ export function Thumbnail({
 
   const countRef = useRef(0);
 
+  useKey("escape", onCloseMovie);
+
   useEffect(() => {
-    if (rating) countRef.current++;
+    if (rating) countRef.current += 1;
   }, [rating]);
 
   useEffect(
@@ -46,19 +49,6 @@ export function Thumbnail({
   );
 
   useEffect(() => {
-    const callback = (ev) => {
-      if (ev.code === "Escape") {
-        onCloseMovie();
-      }
-    };
-    document.addEventListener("keydown", callback);
-
-    return () => {
-      document.removeEventListener("keydown", callback);
-    };
-  }, [onCloseMovie]);
-
-  useEffect(() => {
     if (!data?.attributes?.titles?.en) return;
     document.title = `Anime | ${data?.attributes?.titles?.en}`;
 
@@ -74,6 +64,7 @@ export function Thumbnail({
       attributes: data.attributes,
       id: data.id,
       rating,
+      countRatingDecisions: countRef.current,
     };
     !isFavorite && onAddFavorite(newAddedFavorite);
     onCloseMovie();

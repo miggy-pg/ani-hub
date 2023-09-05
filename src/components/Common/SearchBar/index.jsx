@@ -1,20 +1,20 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import useKey from "../../../hooks/useKey";
 
 export function SearchBar({ query, setQuery }) {
   const inputEl = useRef(null);
 
-  useEffect(() => {
-    const callback = (e) => {
-      if (document.activeElement === inputEl.current) return;
+  // the second parameter is a purposely a function to include a different format to the custom hook we created
+  // because in the custom hook, the 'callback' is correctly placed however the 'document.activeElement' condition
+  // was not considered when we created the custom hook. Additionally, we are passing multiple variables in a single function
+  // while on our custom hook 'useKey', our 'callback' function only allow a single variable.
+  // So putting all the variables inside a function is the right choice!
+  useKey("Enter", function () {
+    if (document.activeElement === inputEl.current) return;
 
-      if (e.code === "Enter") {
-        inputEl.current.focus();
-        setQuery("");
-      }
-    };
-
-    return () => document.addEventListener("keydown", callback);
-  }, [setQuery]);
+    inputEl.current.focus();
+    setQuery("");
+  });
 
   return (
     <div className="row anime__searchbar">

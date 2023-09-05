@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/style.css";
 import { MyList } from "../../components/Management/MyList";
@@ -7,16 +7,15 @@ import { AnimeList } from "../../components/Management/AnimeList";
 import { SearchBar } from "../../components/Common/SearchBar";
 import { Image } from "../../components/Common/Image";
 import { Details } from "../../components/Common/Image/Details";
+import useMovies from "../../hooks/useMovies";
+import useLocalStorageState from "../../hooks/useLocalStorageState";
 
 function HomePage() {
   const [query, setQuery] = useState("kimi no nawa");
   const [selectedId, setSelectedId] = useState(null);
-  const [animes, setAnimes] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [favorite, setFavorite] = useState(() => {
-    return JSON.parse(localStorage.getItem("favorite"));
-  });
+  const [favorite, setFavorite] = useLocalStorageState([], "favorite");
+  // use custom hook
+  const { animes, isLoading, error } = useMovies(query);
 
   const handleCloseMovie = () => {
     setSelectedId(null);
@@ -35,54 +34,6 @@ function HomePage() {
       favoriteAnime.filter((anime) => anime.id !== id)
     );
   };
-
-  useEffect(() => {
-    localStorage.setItem("favorite", JSON.stringify(favorite));
-  }, [favorite]);
-
-  useEffect(
-    function () {
-      const controller = new AbortController();
-
-      async function fetchAnimes() {
-        try {
-          setIsLoading(true);
-          setError("");
-
-          const res = await fetch(
-            `https://kitsu.io/api/edge/anime?filter[text]=${query}`,
-            { signal: controller.signal }
-          );
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching animes.");
-
-          const data = await res.json();
-          if (data.meta.count === 0) throw new Error("No anime found.");
-
-          setAnimes(data);
-          setError("");
-        } catch (err) {
-          if (err.name !== "AbortError") {
-            setError(err.message);
-          }
-        } finally {
-          setIsLoading(false);
-        }
-      }
-      if (query.length < 3) {
-        setAnimes([]);
-        setError("");
-        return;
-      }
-      handleCloseMovie();
-      fetchAnimes();
-
-      return () => {
-        controller.abort();
-      };
-    },
-    [query]
-  );
 
   return (
     <section className="anime__container">
